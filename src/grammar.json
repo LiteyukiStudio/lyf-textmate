@@ -1,0 +1,152 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Liteyuki Function",
+  "scopeName": "source.lyf",
+  "fileTypes": ["lyf", "liteyukifunction", "liteyukifunctions"],
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#strings" },
+    { "include": "#directives" },
+    { "include": "#decorators" },
+    { "include": "#declarations" },
+    { "include": "#bindings" },
+    { "include": "#calls" },
+    { "include": "#keywords" },
+    { "include": "#constants" },
+    { "include": "#numbers" },
+    { "include": "#members" },
+    { "include": "#operators" },
+    { "include": "#punctuation" },
+    { "include": "#legacy" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        { "name": "comment.line.documentation.lyf", "match": "///.*$" },
+        { "name": "comment.line.number-sign.lyf", "match": "#.*$" },
+        { "name": "comment.line.double-slash.lyf", "match": "//(?!/).*?$" },
+        {
+          "name": "comment.block.lyf",
+          "begin": "/\\*",
+          "end": "\\*/"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.lyf",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            { "name": "constant.character.escape.lyf", "match": "\\\\." },
+            { "name": "variable.other.interpolation.lyf", "match": "\\{[A-Za-z_][A-Za-z0-9_]*\\}" }
+          ]
+        }
+      ]
+    },
+    "directives": {
+      "patterns": [
+        {
+          "match": "(@version)(\\s+)([0-9]+(?:\\.[0-9]+)*)",
+          "captures": {
+            "1": { "name": "keyword.control.directive.lyf" },
+            "3": { "name": "constant.numeric.version.lyf" }
+          }
+        },
+        {
+          "match": "\\b(use)(\\s+)([A-Za-z_][A-Za-z0-9_]*)(?:\\s+@([A-Za-z_][A-Za-z0-9_-]*))?",
+          "captures": {
+            "1": { "name": "keyword.control.import.lyf" },
+            "3": { "name": "entity.name.namespace.lyf" },
+            "4": { "name": "variable.other.provider.lyf" }
+          }
+        }
+      ]
+    },
+    "decorators": {
+      "patterns": [
+        { "name": "meta.annotation.lyf", "match": "@[A-Za-z_][A-Za-z0-9_]*" },
+        { "name": "variable.parameter.decorator.lyf", "match": "\\b(tool|prompt)\\b(?=\\s*[,)])" }
+      ]
+    },
+    "declarations": {
+      "patterns": [
+        {
+          "match": "\\b(fn)(\\s+)([A-Za-z_][A-Za-z0-9_]*)",
+          "captures": {
+            "1": { "name": "storage.type.function.lyf" },
+            "3": { "name": "entity.name.function.lyf" }
+          }
+        },
+        {
+          "match": "\\b(async|sync)(\\s+)(?=fn\\b)",
+          "captures": { "1": { "name": "storage.modifier.lyf" } }
+        },
+        {
+          "name": "variable.parameter.function.lyf",
+          "match": "(?<=\\bfn\\s+[A-Za-z_][A-Za-z0-9_]*\\s*\\()([A-Za-z_][A-Za-z0-9_]*)(?=\\s*[,)])"
+        }
+      ]
+    },
+    "bindings": {
+      "patterns": [
+        {
+          "match": "\\b(let|val|const)(\\s+)([_A-Za-z][A-Za-z0-9_]*)",
+          "captures": {
+            "1": { "name": "storage.type.binding.lyf" },
+            "3": { "name": "variable.other.binding.lyf" }
+          }
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.lyf",
+          "match": "\\b(return|await|pass|while|for|in|echo|print|terminal)\\b"
+        },
+        { "name": "keyword.operator.logical.lyf", "match": "\\b(and|or|not)\\b" }
+      ]
+    },
+    "constants": {
+      "patterns": [
+        { "name": "constant.language.lyf", "match": "\\b(true|false|null)\\b" }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        { "name": "constant.numeric.lyf", "match": "(?<![A-Za-z_])-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?(?:[eE][+-]?[0-9]+)?" }
+      ]
+    },
+    "calls": {
+      "patterns": [
+        { "name": "support.function.call.lyf", "match": "\\b[A-Za-z_][A-Za-z0-9_]*(?=\\s*\\()" }
+      ]
+    },
+    "members": {
+      "patterns": [
+        { "name": "variable.other.member.lyf", "match": "(?<=\\.)[A-Za-z_][A-Za-z0-9_]*" }
+      ]
+    },
+    "operators": {
+      "patterns": [
+        { "name": "keyword.operator.assignment.lyf", "match": ":=|\\+=|=" },
+        { "name": "keyword.operator.comparison.lyf", "match": "==|!=|<=|>=|<|>" },
+        { "name": "keyword.operator.arithmetic.lyf", "match": "[+*/%!-]" }
+      ]
+    },
+    "punctuation": {
+      "patterns": [
+        { "name": "punctuation.definition.parameters.begin.lyf", "match": "\\(|\\[|\\{" },
+        { "name": "punctuation.definition.parameters.end.lyf", "match": "\\)|\\]|\\}" },
+        { "name": "punctuation.separator.lyf", "match": "[,;:.]" }
+      ]
+    },
+    "legacy": {
+      "patterns": [
+        { "name": "invalid.deprecated.lyf", "match": "\\b(var|api|cmd|nohup|end|eval|function)\\b" }
+      ]
+    }
+  }
+}

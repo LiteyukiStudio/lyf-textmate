@@ -1,0 +1,53 @@
+{
+  "name": "@liteyuki/lyf-textmate",
+  "version": "0.1.0-alpha.13",
+  "description": "Framework-neutral TextMate tokenization for Liteyuki Function (LYF).",
+  "license": "LicenseRef-LSO-Common-1.4",
+  "type": "module",
+  "packageManager": "pnpm@11.5.3",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json && node scripts/copy-assets.mjs",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "pnpm build && vitest run",
+    "pack:check": "pnpm build && npm pack --dry-run",
+    "consumer:build": "pnpm build && vite build --config tests/vite.config.ts",
+    "publish:public": "npm publish --provenance --access public"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "LICENSE.en",
+    "LICENSE.zh-CN"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./grammar": "./dist/grammar.json",
+    "./themes": {
+      "types": "./dist/themes.d.ts",
+      "import": "./dist/themes.js"
+    },
+    "./wasm": "./dist/onig.wasm"
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "dependencies": {
+    "vscode-oniguruma": "2.0.1",
+    "vscode-textmate": "9.3.2"
+  },
+  "devDependencies": {
+    "@types/node": "26.2.0",
+    "typescript": "7.0.2",
+    "vite": "8.2.2",
+    "vitest": "4.0.16"
+  }
+}
