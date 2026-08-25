@@ -3,6 +3,10 @@
   "version": "0.1.0-alpha.13",
   "description": "Framework-neutral TextMate tokenization for Liteyuki Function (LYF).",
   "license": "LicenseRef-LSO-Common-1.4",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LiteyukiStudio/lyf-textmate"
+  },
   "type": "module",
   "packageManager": "pnpm@11.5.3",
   "engines": {
